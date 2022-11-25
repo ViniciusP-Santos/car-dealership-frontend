@@ -12,29 +12,33 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createTheme();
 
 export default function SignIn() {
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const authentication = getAuth();
+    signInWithEmailAndPassword( authentication, data.get('email'), data.get('password'))
+    .then((response) => {
+      navigate('/dashboard')
+      sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+    }).catch((error) => {
+      if(error.code === 'auth/wrong-password'){
+        toast.error('Please check the Password');
+      }
+      if(error.code === 'auth/user-not-found'){
+        toast.error('Please check the Email');
+      }
+    })
   };
 
   return (
@@ -101,7 +105,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <ToastContainer />
       </Container>
     </ThemeProvider>
   );
