@@ -13,11 +13,15 @@ import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccount
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 
-import { IsAuthenticatedAdmin, isAuthenticated } from '../services/auth'
+import { IsAuthenticatedAdmin } from '../services/auth'
+import { useNavigate } from 'react-router-dom';
 
-export const mainListItems = (
+export const MainListItems = () => {
+  const navigate = useNavigate()
+  return(
   <React.Fragment>
-    <ListItemButton>
+
+    <ListItemButton onClick={(e) => navigate('/dashboard')}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -45,23 +49,25 @@ export const mainListItems = (
       <ListItemText primary="Estoque" />
     </ListItemButton>
   </React.Fragment>
-);
+  )
+};
 
-export const secondaryListItems = () => {
-console.log(IsAuthenticatedAdmin())
-
-  if(isAuthenticated){
+export const SecondaryListItems = () => {
+  const navigate = useNavigate()
+  if(IsAuthenticatedAdmin()){
     return (
       <React.Fragment>
         <ListSubheader component="div" inset>
           Administrativo
         </ListSubheader>
-        <ListItemButton>
+
+        <ListItemButton onClick={(e) => navigate('/colaborattors')}>
           <ListItemIcon>
             <SupervisorAccountOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Colaboradores" />
         </ListItemButton>
+
         <ListItemButton>
           <ListItemIcon>
             <PaymentsOutlinedIcon />

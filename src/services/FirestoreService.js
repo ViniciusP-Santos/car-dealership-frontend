@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 
 const db = getFirestore(app)
 
-function getAllUsers() {
+export const getAllUsers = () => {
    return new Promise((resolve, reject) => {
       db.collection("users").get().then((users) => {
            resolve(users);
@@ -12,4 +12,3 @@ function getAllUsers() {
       })
    })
 }
-export default { getAllUsers }

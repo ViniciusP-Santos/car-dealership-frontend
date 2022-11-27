@@ -1,24 +1,34 @@
 import { useEffect, useState } from 'react';
-import { app } from './firebaseUtils'
-import { getFirestore, getDoc, doc } from "firebase/firestore";
+import {  db } from './firebaseUtils'
+import { doc, onSnapshot } from "firebase/firestore";
 import { getAuth ,onAuthStateChanged} from 'firebase/auth';
 
 export const isAuthenticated = sessionStorage.getItem('Auth Token') !== null;
 
-export const IsAuthenticatedAdmin = async () => {
+export const IsAuthenticatedAdmin = () => {
     const [user, setUser] = useState()
     const [error, setError] = useState()
+    const [userData, setUserData] = useState()
 
     useEffect(() => {
         const auth = getAuth()
         const unsubscribe = onAuthStateChanged(auth, setUser, setError)
+        if(user){
+          onSnapshot(doc(db, "users", sessionStorage.getItem('Uid')), (doc) => {
+            setUserData({
+              uid: sessionStorage.getItem('Uid'),
+              name: doc.data().name,
+              email: doc.data().email,
+              role: doc.data().role
+            })
+          })
+        }
         return () => unsubscribe()
-      }, [])
-    
-      if(user){
-        const db = getFirestore(app)
-        const docRef = doc(db, "users", user.auth.currentUser.email)
-        const docSnap = await getDoc(docRef) 
-        return docSnap
+      }, [user])
+
+      if(userData?.role === 'admin'){
+        return true
+      }else{
+        return false
       }
 }

@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -18,23 +18,25 @@ import Logo from '../../assets/logo.png'
 
 const theme = createTheme();
 export default function SignIn() {
+
   const navigate = useNavigate()
-  const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     const authentication = getAuth();
     
     signInWithEmailAndPassword( authentication, data.get('email'), data.get('password'))
-    .then(async (response) => {
-      navigate('/dashboard')
+    .then((response) => { 
+      navigate('/')
       sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+      sessionStorage.setItem('Uid',response.user.uid)
     }).catch((error) => {
       if(error.code === 'auth/wrong-password'){
-        toast.error('Please check the Password');
+        toast.error('Por favor, verifique a senha!');
       }
       if(error.code === 'auth/user-not-found'){
-        toast.error('Please check the Email');
+        toast.error('Por favor, verifique o email!');
       }
     })
   };
