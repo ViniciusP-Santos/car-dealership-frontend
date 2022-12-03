@@ -3,8 +3,6 @@ import {  db } from './firebaseUtils'
 import { doc, onSnapshot } from "firebase/firestore";
 import { getAuth ,onAuthStateChanged} from 'firebase/auth';
 
-export const isAuthenticated = sessionStorage.getItem('Auth Token') !== null;
-
 export const IsAuthenticatedAdmin = () => {
     const [user, setUser] = useState()
     const [error, setError] = useState()

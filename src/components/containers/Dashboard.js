@@ -8,7 +8,7 @@ import TemplatePage from '../TemplatePage';
 
 export function DashboardContent() {
   return(
-    <h1>Livia Gabriela é a mulher mais linda do mundo!</h1>
+    <h1>Bem vindo ao dashboard</h1>
   );
 }
 export default function  Dashboard() {

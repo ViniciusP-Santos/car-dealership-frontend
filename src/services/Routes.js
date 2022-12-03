@@ -1,8 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import { isAuthenticated } from "../services/auth"
-
 import Dashboard from "../components/containers/Dashboard";
 import Login from "../components/containers/Login";
 import Register from "../components/containers/Register"
@@ -10,13 +8,12 @@ import NotFound from "../components/containers/NotFound"
 import Collaborators from "../components/containers/Collaborators"
 
 const PrivateRouteAdmin = ({ children, redirectTo }) => {
-    return isAuthenticated ? children : <Navigate to={redirectTo} />;
+    return sessionStorage.getItem('auth') ? children : <Navigate to={redirectTo} />;
 };
 
 const PrivateRoute = ({ children, redirectTo }) => {
-    return isAuthenticated ? children : <Navigate to={redirectTo} />;
+    return sessionStorage.getItem('auth') ? children : <Navigate to={redirectTo} />;
 };
-
 const Router = () => {
    return(
     <Routes>

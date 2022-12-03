@@ -161,6 +161,8 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
               onClick={(e) => {
                 setUser({
+                id: Math.floor(Math.random() * 100),
+                type: 'colaborador',
                 name,
                 email,
                 role

@@ -1,14 +1,23 @@
-import { app } from '../../services/firebaseUtils'
-import { getFirestore } from "firebase/firestore";
+import { useEffect, useState } from "react"
+import { db } from "./firebaseUtils";
+import { onSnapshot } from "firebase/firestore";
+import { collection, query, where } from "firebase/firestore";
 
-const db = getFirestore(app)
 
-export const getAllUsers = () => {
-   return new Promise((resolve, reject) => {
-      db.collection("users").get().then((users) => {
-           resolve(users);
-      }).catch((e) => {
-           reject(e);
-      })
-   })
+export const GetAllCollaborators = () => {
+   let [userData, setUserData] = useState()
+
+   useEffect(() => {
+      const q = query(collection(db, "users"), where("type", "==", "colaborador"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const users = [];
+      querySnapshot.forEach((doc) => {
+            users.push(doc.data());
+      });
+      setUserData(users)
+      });
+      return () => unsubscribe()
+    }, [])
+
+   return userData
 }
