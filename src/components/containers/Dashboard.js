@@ -1,3 +1,4 @@
+import { Text } from '@chakra-ui/react';
 import React from 'react';
 
 import TemplatePage from '../TemplatePage';
@@ -8,11 +9,11 @@ import TemplatePage from '../TemplatePage';
 
 export function DashboardContent() {
   return(
-    <h1>Bem vindo ao dashboard</h1>
+    <Text color="white">Bem vindo ao dashboard</Text>
   );
 }
 export default function  Dashboard() {
   return (
-    <TemplatePage conteudo={<DashboardContent />} name={'Dashboard'}></TemplatePage>
+    <TemplatePage conteudo={<DashboardContent/>}/> 
   );
 }

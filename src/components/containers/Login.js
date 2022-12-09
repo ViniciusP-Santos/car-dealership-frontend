@@ -73,7 +73,7 @@ export default function SignIn() {
     })
   };
   return (
-    <Flex position='relative' theme={theme} >
+    <Flex position='relative' bgGradient='linear(to-l, #0c0f34, #00062a)' >
       <ToastContainer autoClose={3000} />
       <Flex
         minH='50vh'
@@ -215,7 +215,8 @@ export default function SignIn() {
           position='absolute'
           left='0px'>
           <Box
-            bgImage={signInImage}
+            // bgImage={signInImage}
+            boxShadow='dark-lg' p='6' rounded='md' 
             w='100%'
             h='100%'
             bgSize='cover'

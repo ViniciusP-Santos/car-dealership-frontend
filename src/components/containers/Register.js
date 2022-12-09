@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { FaUserAlt, FaLock } from "react-icons/fa";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
 
+import InputMask from "react-input-mask";
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { app } from '../../services/firebaseUtils'
 import { collection, getFirestore, doc, setDoc } from "firebase/firestore";
@@ -21,161 +13,199 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Logo from '../../assets/logo.png'
-import { isAuthenticated } from '../../services/auth';
-const theme = createTheme();
 
-export default function SignUp() {
+import { Box, Button, chakra, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Select, Stack } from '@chakra-ui/react';
+import TemplatePage from '../TemplatePage';
+import { useNavigate } from 'react-router-dom';
+
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
+const PhoneIcon = chakra(BsFillTelephoneFill);
+const EmailIcon = chakra(MdEmail);
+
+
+function SignUp() {
   let [name, setName] = useState('');
+  let [phoneNumber, setPhoneNumber] = useState('');
   let [email, setEmail] = useState('');
   let [password, setPassword] = useState('');
   let [role, setRole] = useState('');
-  let [user, setUser] = useState();
 
   const db = getFirestore(app)
   const userCollectionRef = collection(db, "users")
-
-  const chandleSubmit = async(event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const navigate = useNavigate()
+  const handleSubmit = () => {
     const authentication = getAuth();
 
-    if(!user.name){
+    if(!name){
       toast.error('Campo nome está vazio!')
-    }else if(!user.email){
+    }else if(!email){
       toast.error('Campo email está vazio!')
-    }else if(!data.get('password')){
+    }else if(!password){
       toast.error('Campo senha está vazio!')
     }else if(!role){
       toast.error('Campo nivel está vazio!')
     }else {
-      createUserWithEmailAndPassword( authentication, data.get('email'), data.get('password'))
+      createUserWithEmailAndPassword( authentication, email, password)
         .then((response) => {
             const uid = response.user.uid;
-            setDoc(doc(userCollectionRef, uid), user);
-            toast.success("Registro realizado com sucesso!")
+            setDoc(doc(userCollectionRef, uid), {
+              id: Math.floor(Math.random() * 100),
+              type: 'colaborador',
+              name,
+              phoneNumber,
+              email,
+              role
+            });
             setName('')
             setEmail('')
             setPassword('')
             setRole('')
+            setPhoneNumber('')
+            toast.success("Registro realizado com sucesso!")
+            navigate('/colaborattors')
         }).catch((error) => {
-            if (error.code === 'auth/email-already-in-use') {
-                toast.error('Email já está em uso!');
-            }
+          switch(error.code){
+            case 'auth/user-not-found' : 
+              toast.error('Usuario não encontrado!')
+              break;
+            case 'auth/wrong-password' :
+              toast.error('Por favor, verifique a senha!')
+              break;
+              case 'auth/email-not-found' : 
+              toast.error('Usuario não encontrado!')
+              break;
+            default:
+              console.log(error)
+              toast.error(error.code)
+          }
         })
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowClick = () => setShowPassword(!showPassword);
+
+
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Box
-            sx={{
-              width: 400,
-              height: 150,
-              marginBottom: 2,
-              paddingTop:3,
-              border: 'solid 2px rgba(0, 0, 0, .1)',
-              borderRadius: 5,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <img src={Logo} alt="Logo CarDealership" width="220"/>
-         </Box>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Cadastrar Colaborador
-          </Typography>
-          <Box component="form" noValidate onSubmit={chandleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Nome Completo"
-                  autoFocus
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Endereço de e-mail"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Senha"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-              <InputLabel id="demo-simple-select-label">Nivel</InputLabel>
-                <Select
-                  required
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={role}
-                  label="Nivel"
-                  onChange={(e) => setRole(e.target.value)}
-                  fullWidth
-                >
-                  <MenuItem value={'admin'}>Admin</MenuItem>
-                  <MenuItem value={'salesperson'}>Vendedor</MenuItem>
-                  <MenuItem value={'marketing'}>Marketing</MenuItem>
-                </Select>
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={(e) => {
-                setUser({
-                id: Math.floor(Math.random() * 100),
-                type: 'colaborador',
-                name,
-                email,
-                role
-              })
-            
-            }}
-            >
-              Cadastrar
-            </Button>
-          </Box>
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      > 
+      <ToastContainer/>
+        <Box margin="50px">
+          <img src={Logo} alt="Logo CarDealership" width="220"/>
         </Box>
-        <ToastContainer />
-      </Container>
-    </ThemeProvider>
+        <Heading color="teal.400">Registro de Colaborador</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
+            >
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<CFaUserAlt color="gray.500" />}
+                  />
+                  <Input 
+                    type="name" 
+                    placeholder="Nome"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<PhoneIcon color="gray.500" />}
+                  />
+                  <Input 
+                    type="phoneNumber" 
+                    as={InputMask}
+                    mask="(99) 9 9999-9999"
+                    placeholder="Celular"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<EmailIcon color="gray.500" />}
+                  />
+                  <Input 
+                    type="email" 
+                    value={email}
+                    placeholder="Endereço de email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.500"
+                    children={<CFaLock color="gray.500" />}
+                  />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleShowClick}>
+                      {showPassword ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <Select placeholder='Selecione o Nivel' color="gray.600" value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value='admin'>Administrador</option>
+                  <option value='salesperson'>Vendedor</option>
+                  <option value='marketing'>Marketing</option>
+                </Select>
+              </FormControl>
+              <Button
+                borderRadius={0}
+                variant="solid"
+                colorScheme="teal"
+                width="full"
+                onClick={(e) => handleSubmit()}
+              >
+                CADASTRAR
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
+  );
+}
+
+export default function Collaborators() {
+
+  return (
+    <TemplatePage name={'Colaboradores'} conteudo={<SignUp />}/>
   );
 }
