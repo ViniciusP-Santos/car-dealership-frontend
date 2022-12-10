@@ -3,9 +3,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Dashboard from "../components/containers/Dashboard";
 import Login from "../components/containers/Login";
-import Register from "../components/containers/Register"
+import RegisterCollaborators from "../components/containers/Register"
 import NotFound from "../components/containers/NotFound"
 import Collaborators from "../components/containers/Collaborators"
+import UpdateCollaborators from "../components/containers/Update";
+import VehiclesStore from "../components/containers/Vehicles/Store";
+import RegisterVehicles from "../components/containers/Vehicles/RegisterVehicles";
 
 const PrivateRouteAdmin = ({ children, redirectTo }) => {
     return sessionStorage.getItem('auth') ? children : <Navigate to={redirectTo} />;
@@ -22,7 +25,15 @@ const Router = () => {
             path="/register"
             element={
             <PrivateRouteAdmin redirectTo="/login">
-                <Register />
+                <RegisterCollaborators />
+            </PrivateRouteAdmin>
+            }
+        />
+        <Route
+            path="/update-collaborators"
+            element={
+            <PrivateRouteAdmin redirectTo="/login">
+                <UpdateCollaborators />
             </PrivateRouteAdmin>
             }
         />
@@ -40,6 +51,22 @@ const Router = () => {
             element={
             <PrivateRoute redirectTo="/login">
                 <Dashboard />
+            </PrivateRoute>
+            }
+        /> 
+        <Route 
+            path="/vehicles" 
+            element={
+            <PrivateRoute redirectTo="/login">
+                <VehiclesStore />
+            </PrivateRoute>
+            }
+        /> 
+        <Route 
+            path="/register-vehicles" 
+            element={
+            <PrivateRoute redirectTo="/login">
+                <RegisterVehicles />
             </PrivateRoute>
             }
         /> 

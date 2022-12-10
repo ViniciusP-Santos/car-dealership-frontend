@@ -12,7 +12,7 @@ export const GetAllCollaborators = () => {
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const users = [];
       querySnapshot.forEach((doc) => {
-            users.push(doc.data());
+         users.push({ ...doc.data(), id: doc.id });
       });
       setUserData(users)
       });
@@ -20,4 +20,22 @@ export const GetAllCollaborators = () => {
     }, [])
 
    return userData
+}
+
+export const GetAllVehicles = () => {
+   let [vehiclesData, setVehiclesData] = useState()
+
+   useEffect(() => {
+      const q = query(collection(db, "veiculos"), where("type", "==", "veiculos"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const vehicles = [];
+      querySnapshot.forEach((doc) => {
+         vehicles.push({ ...doc.data(), id: doc.id });
+      });
+      setVehiclesData(vehicles)
+      });
+      return () => unsubscribe()
+    }, [])
+
+   return vehiclesData
 }

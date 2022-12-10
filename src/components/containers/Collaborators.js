@@ -3,10 +3,9 @@ import TemplatePage from '../TemplatePage'
 import { BasicTable } from '../BasicTable'; 
 import { GetAllCollaborators } from '../../services/FirestoreService'
 import { nivelFormat } from '../../helpers/collaboratorsHelpers'
-import { Button } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
-// const textColor = useColorModeValue("gray.700", "white")
 
 const tableColumns = [
   {
@@ -54,7 +53,7 @@ function DataTable() {
 
   if(collaboratorsItem){
     return (
-      <div>
+      <Box maxBlockSize="600px">
         <Button 
           leftIcon={<AiOutlinePlus />} 
           colorScheme='blue' 
@@ -65,7 +64,7 @@ function DataTable() {
           Adicionar Colaborador
         </Button>
         <BasicTable tableColumns={tableColumns} userData={collaboratorsItem}/>
-      </div>
+      </Box>
     )
   }
   return null

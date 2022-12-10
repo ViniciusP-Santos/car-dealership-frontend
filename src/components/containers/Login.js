@@ -18,7 +18,6 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { FaLock } from "react-icons/fa";
-import { theme } from "../../styles/Theme";
 
 // eslint-disable-next-line no-unused-vars
 import { app } from '../../services/firebaseUtils'
@@ -28,9 +27,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Logo from '../../assets/logo.png'
-
-// Assets
-import signInImage from "../../assets/signInImage.jpg"
 
 // Custom Components
 import GradientBorder from "../GradientBorder/GradientBorder";
@@ -165,7 +161,7 @@ export default function SignIn() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement width="5rem">
-                    <Button h="1.5rem" borderRadius="20px" marginTop="10px" size="sm" onClick={handleShowClick}>
+                    <Button h="1.5rem" borderRadius="20px" marginTop="10px" size="sm" onClick={handleShowClick} _hover={{ bg: '#FFE810' , color: 'black'}}>
                       {showPassword ? "Hide" : "Show"}
                     </Button>
                   </InputRightElement>
@@ -193,6 +189,7 @@ export default function SignIn() {
               h='45'
               mb='20px'
               mt='20px'
+              _hover={{ bg: '#FFE810' , color: 'black'}}
               onClick={(e) => handleSubmit()}
               >
               ENTRAR
