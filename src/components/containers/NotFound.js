@@ -1,31 +1,27 @@
+import { Button, Flex, Heading, Text } from '@chakra-ui/react';
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import { blue } from '@mui/material/colors';
 
 import { useNavigate } from 'react-router-dom';
-
-const primary = blue[500]; // #f44336
 
 export default function Error() {
   const navigate = useNavigate()
   return (
-    <Box
+    <Flex
       sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
         minHeight: '100vh',
-        backgroundColor: primary,
       }}
     >
-      <Typography variant="h1" style={{ color: 'white' }}>
-        404
-      </Typography>
-      <Typography variant="h6" style={{ color: 'white' }}>
+      <Heading as='h2' size='3xl' noOfLines={1} color="white">
+        ERROR 404
+      </Heading>
+      <Text variant="h6" fontSize='3xl' style={{ color: 'white' }}>
         Esta pagina não existe! Aperte o botão para voltar!
-      </Typography>
-      <Button variant="contained" onClick={(e) => navigate("/")}>Back Home</Button>
-    </Box>
+      </Text>
+      <Button colorScheme='teal' size='md' onClick={(e) => navigate("/")}>Back Home</Button>
+    </Flex>
   );
 }

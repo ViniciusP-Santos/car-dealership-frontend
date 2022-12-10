@@ -1,6 +1,5 @@
 {
   "name": "car-dealership-frontend",
-  "homepage": "car-dealership-frontend/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
