@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/car-dealership-frontend/static/css/main.b3eeeea7.css",
+    "main.js": "/car-dealership-frontend/static/js/main.95e9cdaa.js",
+    "static/media/logo.png": "/car-dealership-frontend/static/media/logo.6e8e44524826c6f927ee.png",
+    "index.html": "/car-dealership-frontend/index.html",
+    "main.b3eeeea7.css.map": "/car-dealership-frontend/static/css/main.b3eeeea7.css.map",
+    "main.95e9cdaa.js.map": "/car-dealership-frontend/static/js/main.95e9cdaa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3eeeea7.css",
+    "static/js/main.95e9cdaa.js"
+  ]
+}
