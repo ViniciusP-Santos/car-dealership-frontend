@@ -24,7 +24,7 @@ export const IsAuthenticatedAdmin = () => {
         return () => unsubscribe()
       }, [user])
 
-      if(userData?.role === 'admin'){
+      if(userData){
         sessionStorage.setItem('Avatar',userData.avatar_url)
         return userData
       }else{

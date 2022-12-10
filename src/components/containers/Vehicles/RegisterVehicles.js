@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Logo from '../../../assets/logo.png'
 
-import { Box, Button, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, Stack, Textarea } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, Select, Stack, Textarea } from '@chakra-ui/react';
 import TemplatePage from '../../TemplatePage';
 
 function RegisterVehicleContent() {
@@ -20,6 +20,7 @@ function RegisterVehicleContent() {
   let [ano, setAno] = useState('');
   let [preco, setPreco] = useState('');
   let [descricao, setDescricao] = useState('');
+  let [tipo, setTipo] = useState('');
   let [image, setImage] = useState('');
   let [image2, setImage2] = useState('');
   let [image3, setImage3] = useState('');
@@ -44,6 +45,7 @@ function RegisterVehicleContent() {
         ano,
         preco,
         descricao,
+        tipo,
         image,
         image2,
         image3
@@ -53,6 +55,7 @@ function RegisterVehicleContent() {
       setAno('')
       setPreco('')
       setDescricao('')
+      setTipo('')
       setImage('')
       setImage2('')
       setImage3('')
@@ -150,6 +153,13 @@ function RegisterVehicleContent() {
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
+              </FormControl>
+              <FormControl>
+                <Select placeholder='Selecione o tipo*' color="gray.600" value={tipo} onChange={(e) => setTipo(e.target.value)}>
+                  <option value='admin'>Carro</option>
+                  <option value='salesperson'>Moto</option>
+                  <option value='marketing'>Caminhão</option>
+                </Select>
               </FormControl>
               <FormControl>
                 <InputGroup>

@@ -79,6 +79,7 @@ const Router = () => {
             }
         /> 
         {/* Routes Public */}
+        <Route path="/car-dealership-frontend" element={<Navigate to="/" />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/404" element={<NotFound />}/>
         <Route path="*" element={<Navigate to="/404" />} />

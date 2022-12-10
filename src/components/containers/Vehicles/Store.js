@@ -46,11 +46,11 @@ function StorePage() {
         <Grid
           marginTop="20px"
           w="160vh"
-          gridGap="5"
-          gridTemplateColumns="repeat( auto-fit, minmax(300px, 1fr) )"
+          gridGap="6"
+          gridTemplateColumns="repeat( auto-fit, minmax(200px, 1fr) )"
         >
           {vehicleItemData.map((p) => (
-            <Product key={p.id} user={vehicleItemData} {...p} />
+            <Product key={p.id} product={p} {...p} />
           ))}
         </Grid>
       </Flex>
