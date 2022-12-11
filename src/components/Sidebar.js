@@ -48,8 +48,8 @@ export default function Sidebar() {
             minH={"600px"}
             marginTop="2.5vh"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-            borderRadius={navSize === "small" ? "15px" : "30px"}
-            w={navSize === "small" ? "75px" : "220px"}
+            borderRadius="30px"
+            w="200px"
             flexDir="column"
             justifyContent="space-between"
         >

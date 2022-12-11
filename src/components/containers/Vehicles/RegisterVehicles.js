@@ -156,9 +156,9 @@ function RegisterVehicleContent() {
               </FormControl>
               <FormControl>
                 <Select placeholder='Selecione o tipo*' color="gray.600" value={tipo} onChange={(e) => setTipo(e.target.value)}>
-                  <option value='admin'>Carro</option>
-                  <option value='salesperson'>Moto</option>
-                  <option value='marketing'>Caminhão</option>
+                  <option value='car'>Carro</option>
+                  <option value='bike'>Moto</option>
+                  <option value='truck'>Caminhão</option>
                 </Select>
               </FormControl>
               <FormControl>

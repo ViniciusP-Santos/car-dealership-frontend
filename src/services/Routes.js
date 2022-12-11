@@ -9,6 +9,7 @@ import Collaborators from "../components/containers/Collaborators"
 import UpdateCollaborators from "../components/containers/Update";
 import VehiclesStore from "../components/containers/Vehicles/Store";
 import RegisterVehicles from "../components/containers/Vehicles/RegisterVehicles";
+import ViewProduct from "../components/containers/Vehicles/viewProduct";
 
 const PrivateRouteAdmin = ({ children, redirectTo }) => {
     return sessionStorage.getItem('auth') ? children : <Navigate to={redirectTo} />;
@@ -67,6 +68,14 @@ const Router = () => {
             element={
             <PrivateRoute redirectTo="/login">
                 <RegisterVehicles />
+            </PrivateRoute>
+            }
+        /> 
+        <Route 
+            path="/view-vehicle/:productId" exact
+            element={
+            <PrivateRoute redirectTo="/login">
+                <ViewProduct />
             </PrivateRoute>
             }
         /> 

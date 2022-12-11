@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { AiOutlineLink } from "react-icons/ai";
+import { MdEmail } from "react-icons/md";
 
 import InputMask from "react-input-mask";
 import { app } from '../../services/firebaseUtils'
@@ -20,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 const PhoneIcon = chakra(BsFillTelephoneFill);
+const EmailIcon = chakra(MdEmail);
 
 function Update() {
 
@@ -28,6 +30,7 @@ function Update() {
   let [name, setName] = useState(user.name);
   let [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
   let [password, setPassword] = useState('');
+  let [email, setEmail ] = useState(user.email);
   let [role, setRole] = useState(user.role);
   let [avatar, setAvatar] = useState(user.avatar_url);
 
@@ -45,6 +48,7 @@ function Update() {
     }else {
       const data = {
         type: 'colaborador',
+        email,
         name,
         phoneNumber,
         role,
@@ -126,6 +130,20 @@ function Update() {
                     placeholder="Celular*"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<EmailIcon color="gray.500" />}
+                  />
+                  <Input 
+                    type="email*" 
+                    value={email}
+                    placeholder="Endereço de email*"
+                    onChange={(e) => setEmail(e.target.value)}
                     />
                 </InputGroup>
               </FormControl>

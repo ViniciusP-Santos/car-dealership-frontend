@@ -1,8 +1,10 @@
 import { Text, Image, Box, Stack, Heading, Button } from "@chakra-ui/react";
 import { collection, deleteDoc, doc, getFirestore, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { app } from "../../../services/firebaseUtils";
 const Product = ({product , imageSrc, imageAlt, title, category, price }) => {
+  const navigate = useNavigate()
   const db = getFirestore(app)
   const userCollectionRef = collection(db, "veiculos-vendidos")
 
@@ -12,8 +14,20 @@ const Product = ({product , imageSrc, imageAlt, title, category, price }) => {
     toast.success('Veiculo marcado como vendido!')
   }
 
+  const viewProduct = (product) => {
+      navigate(`/view-vehicle/${product.id}`)
+  }
+
   return (
-  <Stack p={{ base: "0 2rem" }} background="white" borderRadius="20px" padding="20px" maxWidth="300px">
+  <Stack 
+    p={{ base: "0 2rem" }} 
+    background="white" 
+    borderRadius="20px" 
+    padding="20px" 
+    maxWidth="300px"
+    onClick={(e) => viewProduct(product)}
+    _hover={{ cursor: "pointer"}}
+    >
     <Image objectFit="cover" src={imageSrc} alt={imageAlt} borderRadius="20px" minHeight="180px"/>
     <Text color="teal.600" textTransform="uppercase">
       {category}

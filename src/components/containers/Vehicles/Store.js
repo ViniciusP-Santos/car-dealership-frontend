@@ -1,4 +1,4 @@
-import { Button, Flex, Grid } from "@chakra-ui/react";
+import { Button, Flex, Grid, Text } from "@chakra-ui/react";
 import TemplatePage from "../../TemplatePage";
 import Product from "./Products";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -9,7 +9,7 @@ import { useState } from "react";
 import { moneyFormat } from "../../../helpers/storeVehicles"
   
 
-function StorePage() {
+function ViewPageContent() {
   const navigate = useNavigate()
   let [vehicleItemData, setVehicleItemData] = useState('');
 
@@ -32,10 +32,10 @@ function StorePage() {
 
   if(vehicleItemData){
     return (
-      <Flex direction="column" h="500vh"  maxBlockSize="620px">
+      <Flex direction="column" h="500vh"  maxBlockSize="620px" alignContent="center" alignItems="center">
+          <Text as="b" marginBottom="20px" color="white" fontSize="30px">Veiculos disponiveis em estoque</Text>
           <Button 
               w="250px"
-              h="150px"
               leftIcon={<AiOutlinePlus />} 
               colorScheme='blue' 
               variant='outline' 
@@ -60,8 +60,8 @@ function StorePage() {
   }
 }
 
-export default function VehiclesStore() {
+export default function viewPage() {
     return (
-        <TemplatePage conteudo={<StorePage/>}/> 
+        <TemplatePage conteudo={<ViewPageContent/>}/> 
     );
   }
