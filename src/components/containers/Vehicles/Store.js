@@ -32,7 +32,13 @@ function ViewPageContent() {
 
   if(vehicleItemData){
     return (
-      <Flex direction="column" h="500vh"  maxBlockSize="620px" alignContent="center" alignItems="center">
+      <Flex 
+      direction="column" 
+      h="500vh"  
+      maxBlockSize="620px" 
+      alignContent="center" 
+      alignItems="center"
+      marginLeft="20px">
           <Text as="b" marginBottom="20px" color="white" fontSize="30px">Veiculos disponiveis em estoque</Text>
           <Button 
               w="250px"

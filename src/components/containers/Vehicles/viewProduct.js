@@ -6,7 +6,7 @@ import { AiOutlineLink } from "react-icons/ai";
 
 import TemplatePage from '../../TemplatePage';
 import ImageSlider from "../../ImageSlider";
-import { doc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { app } from '../../../services/firebaseUtils';
 import { toast, ToastContainer } from 'react-toastify';
   

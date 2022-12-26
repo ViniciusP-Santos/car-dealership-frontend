@@ -12,7 +12,7 @@ import {
     FiBriefcase,
     FiDollarSign
 } from 'react-icons/fi'
-import { AiOutlineCar, AiOutlineAppstoreAdd } from "react-icons/ai";
+import { AiOutlineCar, AiOutlineUsergroupDelete } from "react-icons/ai";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { IsAuthenticatedAdmin } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
@@ -27,7 +27,9 @@ export default function Sidebar() {
     const handleLogout = () => {
       sessionStorage.removeItem('auth');
       sessionStorage.removeItem('Uid');
-      sessionStorage.removeItem('Avatar')
+      sessionStorage.removeItem('Avatar');
+      sessionStorage.removeItem('user');
+      sessionStorage.removeItem('client');
       navigate('/login')
     }
 
@@ -45,7 +47,8 @@ export default function Sidebar() {
             pos="sticky"
             left="5"
             h="100%"
-            minH={"600px"}
+            minH="600px"
+            minW="190px"
             marginTop="2.5vh"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
             borderRadius="30px"
@@ -63,13 +66,13 @@ export default function Sidebar() {
                             Dashboard
                     </Button>
                     <Button leftIcon={<AiOutlineCar />} colorScheme='facebook' variant='ghost' marginTop={"20px"} h={'50px'} onClick={(e) => navigate('/vehicles')}>
-                            Veiculos
+                            Estoque
                     </Button>
-                    <Button leftIcon={<AiOutlineAppstoreAdd />} colorScheme='facebook' variant='ghost' marginTop={"20px"} h={'50px'} onClick={(e) => navigate('/dashboard')}>
-                            Marketing
-                    </Button>
-                    <Button leftIcon={<FiDollarSign />} colorScheme='facebook' variant='ghost' marginTop={"20px"} h={'50px'} onClick={(e) => navigate('/dashboard')}>
+                    <Button leftIcon={<FiDollarSign />} colorScheme='facebook' variant='ghost' marginTop={"20px"} h={'50px'} onClick={(e) => navigate('/sales')}>
                             Vendas
+                    </Button>
+                    <Button leftIcon={<AiOutlineUsergroupDelete />} colorScheme='facebook' variant='ghost' marginTop={"20px"} h={'50px'} onClick={(e) => navigate('/customers')}>
+                            Clientes
                     </Button>
             </Flex>
             <Flex
