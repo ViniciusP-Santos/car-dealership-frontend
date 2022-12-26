@@ -49,9 +49,9 @@ const Product = ({product , imageSrc, imageAlt, title, category, price }) => {
     }else{
       setDoc(doc(userCollectionRef), {
         ...product,
-        type: "veiculos-vendidos",
         sellerName: sellerId,
-        clientName: clientId
+        clientName: clientId,
+        soldDate: new Date()
       });
       updateVehicleFieldType(product.id, {type: "veiculos-vendidos", oldId: product.id})
       toast.success('Veiculo vendido!')

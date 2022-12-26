@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TemplatePage from '../TemplatePage'
 import { BasicTable } from '../BasicTable'; 
-import { GetAllVehiclesSold, updateVehicleFieldType } from '../../services/FirestoreService'
-import { Avatar, Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
-import { toast, ToastContainer } from 'react-toastify';
-import { BsArrowClockwise } from "react-icons/bs";
+import { GetAllVehiclesSold } from '../../services/FirestoreService'
+import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
 const tableColumns = [
   {
@@ -81,7 +79,6 @@ function DataTable() {
     );
     return (
       <Box maxBlockSize="600px">
-        <ToastContainer/>
         <BasicTable tableColumns={tableColumns} userData={vehicleItem} title="Lista de Veiculos Vendidos" tableData={tableData} type="vehiclesSold"/>  
       </Box>
     )
