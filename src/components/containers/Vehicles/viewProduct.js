@@ -6,8 +6,6 @@ import { AiOutlineLink } from "react-icons/ai";
 
 import TemplatePage from '../../TemplatePage';
 import ImageSlider from "../../ImageSlider";
-import { getFirestore } from 'firebase/firestore';
-import { app } from '../../../services/firebaseUtils';
 import { toast, ToastContainer } from 'react-toastify';
   
 
@@ -34,6 +32,7 @@ export function ViewProductContent() {
 
     useEffect(() => {
         fetchVehicle()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     let images = [vehicleItem.image, vehicleItem.image2, vehicleItem.image3]
@@ -48,8 +47,6 @@ export function ViewProductContent() {
     let [image2, setImage2] = useState('');
     let [image3, setImage3] = useState('');
     let [id, setId] = useState('');
-
-    const db = getFirestore(app) 
 
     const handleSubmit = () => {
       if(!marca){
